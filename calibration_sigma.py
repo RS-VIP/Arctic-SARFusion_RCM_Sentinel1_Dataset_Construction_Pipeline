@@ -8,38 +8,38 @@ from scipy.interpolate import interp1d
 from best_match_overlap import get_best_RCM_match
 
 
-# # converting Tif images to float32, replace 0 values with NaN
-# def convert_tif_to_nan(best_RCM_match):
-#     for folder_path in best_RCM_match:
-#         folder_name = os.path.basename(folder_path)        
-#         order_folder = os.path.basename(os.path.dirname(folder_path))
-#         folder_root = folder_path
-#         imagery_path = os.path.join(folder_root, 'imagery')
-#         if not os.path.isdir(imagery_path):
-#             print(f"Skipping: {imagery_path} (not found)")
-#             continue
-#         print(f"\nProcessing: {imagery_path}")
+# converting Tif images to float32, replace 0 values with NaN
+def convert_tif_to_nan(best_RCM_match):
+    for folder_path in best_RCM_match:
+        folder_name = os.path.basename(folder_path)        
+        order_folder = os.path.basename(os.path.dirname(folder_path))
+        folder_root = folder_path
+        imagery_path = os.path.join(folder_root, 'imagery')
+        if not os.path.isdir(imagery_path):
+            print(f"Skipping: {imagery_path} (not found)")
+            continue
+        print(f"\nProcessing: {imagery_path}")
 
-#         for tif_file in os.listdir(imagery_path):
-#             if not tif_file.endswith(".tif"):
-#                 continue
-#             tif_path = os.path.join(imagery_path, tif_file)
+        for tif_file in os.listdir(imagery_path):
+            if not tif_file.endswith(".tif"):
+                continue
+            tif_path = os.path.join(imagery_path, tif_file)
 
-#             with rasterio.open(tif_path) as src:
-#                 arr = src.read(1).astype(np.float32)  # convert to float32
-#                 profile = src.profile.copy()
+            with rasterio.open(tif_path) as src:
+                arr = src.read(1).astype(np.float32)  # convert to float32
+                profile = src.profile.copy()
 
-#             arr[arr == 0] = np.nan                   # replace 0s with NaN
-#             profile.update(dtype='float32', nodata=np.nan)  # update metadata
+            arr[arr == 0] = np.nan                   # replace 0s with NaN
+            profile.update(dtype='float32', nodata=np.nan)  # update metadata
 
-#             base, ext = os.path.splitext(tif_file)
-#             new_filename = f"{base}_nan.tif"
-#             new_path = os.path.join(imagery_path, new_filename)
+            base, ext = os.path.splitext(tif_file)
+            new_filename = f"{base}_nan.tif"
+            new_path = os.path.join(imagery_path, new_filename)
 
-#             # save
-#             with rasterio.open(new_path, 'w', **profile) as dst:
-#                 dst.write(arr, 1)
-#             print(f"Saved: {new_filename}")
+            # save
+            with rasterio.open(new_path, 'w', **profile) as dst:
+                dst.write(arr, 1)
+            print(f"Saved: {new_filename}")
 
 
 
@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
     best_RCM_match, _, _, _ = get_best_RCM_match()
     print(f"Found {len(best_RCM_match)} folders", flush=True)
-    # convert_tif_to_nan(best_RCM_match)
+    convert_tif_to_nan(best_RCM_match)
 
     run_calibration_and_save(best_RCM_match)
     print("Finished calibration", flush=True)
