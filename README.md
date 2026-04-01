@@ -219,18 +219,9 @@ pip install eodms-api-client
 
 ---
 
-## Future Improvements
-
-* Feature-level fusion pipelines
-* Attention-based cross-sensor architectures
-* Uncertainty-aware fusion
-* Automated pipeline orchestration (SLURM / HPC)
-
----
-
 ## Author
 
-Niloofar
+Niloofar Azad
 MASc Systems Design Engineering
 University of Waterloo
 
