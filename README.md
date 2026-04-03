@@ -26,11 +26,11 @@ This dataset enables **multi-sensor fusion for sea ice mapping**, supporting tas
 ```
 rcm_sar_dataset/
 │
+├── rcm_shapefile_creator.py      # Generates shapefiles for RCM scenes
+├── sentinel1_shapefile_creator.py# Generates shapefiles for S1 scenes
 ├── RCM_SAR_download.ipynb        # Interactive notebook for downloading RCM data
 ├── rcm_search_download.py        # Automated RCM querying via EODMS API
 ├── best_match_overlap.py         # Finds best RCM scene for each S1 scene
-├── rcm_shapefile_creator.py      # Generates shapefiles for RCM scenes
-├── sentinel1_shapefile_creator.py# Generates shapefiles for S1 scenes
 ├── calibration_sigma.py          # Converts DN to sigma0 (dB)
 ├── coregisteration_RCM_S1.py     # Co-registers RCM to S1 grid
 ├── updating_AI4Arctic_RCM.py     # Adds RCM channels to AI4Arctic NetCDF
@@ -48,6 +48,12 @@ rcm_sar_dataset/
 
 ## Pipeline Workflow
 
+### 0. Shapefile Generation
+
+Create footprint polygons for spatial operations
+
+---
+
 ### 1. RCM Scene Search & Download
 
 * Uses `rcm_search_download.py`
@@ -57,40 +63,20 @@ rcm_sar_dataset/
   * Spatial overlap (AOI shapefiles)
   * Filters: dual-pol (HH/HV), GRD products
 
-```bash
-python rcm_search_download.py
-```
-
 ---
 
 ### 2. Scene Matching (RCM ↔ S1)
 
-* Computes spatial overlap between RCM and Sentinel-1 scenes
-* Selects best match based on **maximum intersection area**
-
-```bash
-python best_match_overlap.py
-```
+* Computes and plot spatial overlap between RCM and Sentinel-1 scenes
 
 Output:
 
 * Excel summary of matched scenes
-* Selected best RCM per S1 scene
+* Plot RCM and S1 polygons
 
 ---
 
-### 3. Shapefile Generation
-
-Create footprint polygons for spatial operations:
-
-```bash
-python rcm_shapefile_creator.py
-python sentinel1_shapefile_creator.py
-```
-
----
-
-### 4. Radiometric Calibration
+### 3. Radiometric Calibration
 
 Convert raw DN values to sigma naught (σ⁰):
 
@@ -98,13 +84,9 @@ Convert raw DN values to sigma naught (σ⁰):
 * Applies interpolation across range dimension
 * Converts to dB scale
 
-```bash
-python calibration_sigma.py
-```
-
 ---
 
-### 5. Co-registration (RCM → S1 Grid)
+### 4. Co-registration (RCM → S1 Grid)
 
 Align RCM data to Sentinel-1 geometry:
 
@@ -112,48 +94,47 @@ Align RCM data to Sentinel-1 geometry:
 * Maps coordinates into RCM space
 * Applies bilinear interpolation
 
-```bash
-python coregisteration_RCM_S1.py
-```
-
 Output:
 
 * Co-registered RCM HH and HV aligned with S1 pixels
 
 ---
 
-### 6. Dataset Integration (AI4Arctic Extension)
+### 5. Dataset Integration (AI4Arctic Extension)
 
 Add processed RCM channels into NetCDF files:
-
-```bash
-python updating_AI4Arctic_RCM.py
-```
 
 New variables added:
 
 * `sar_RCM_HH_cor_cal`
 * `sar_RCM_HV_cor_cal`
+* `orig_sar_RCM_HH`
+* `orig_sar_RCM_HV`
+* `sar_grid_line_rcm`
+* `sar_grid_sample_rcm`
+* `sar_grid_latitude_rcm`
+* `sar_grid_longitude_rcm`
+* `mask_sentinel`
 
 ---
 
-### 7. Validation & Analysis
+### 6. Validation & Analysis
 
 Check dataset integrity:
 
-```bash
+```
 python check_new_dataset.py
 ```
 
 Compute statistics:
 
-```bash
+```
 python min_max_mean_std.py
 ```
 
 Visualize distributions:
 
-```bash
+```
 python rcm_histograms.py
 ```
 
@@ -168,10 +149,10 @@ Recommended: Python 3.10+
 Install dependencies:
 
 ```bash
-pip install numpy pandas xarray h5netcdf rasterio geopandas shapely matplotlib
+pip install numpy pandas xarray h5netcdf rasterio geopandas shapely matplotlib getpass xml.etree.ElementTree scipy pathlib re
 ```
 
-Optional (for API access):
+for API access:
 
 ```bash
 pip install eodms-api-client
