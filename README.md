@@ -202,7 +202,7 @@ pip install eodms-api-client
 ## Author
 
 Niloofar Azad
-MASc Systems Design Engineering
+MASc Systems Design Engineering, VIP Lab,
 University of Waterloo
 
 ---
