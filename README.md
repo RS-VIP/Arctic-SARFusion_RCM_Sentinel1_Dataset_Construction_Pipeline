@@ -1,6 +1,6 @@
 # Arctic-SARFusion: RCM–Sentinel-1 SAR Dataset Construction Pipeline
 
-This repository provides a complete pipeline for constructing a multi-sensor SAR dataset by integrating **RADARSAT Constellation Mission (RCM)** data with **Sentinel-1 (S1)** scenes from the AI4Arctic dataset. =
+This repository provides a complete pipeline for constructing the Arctic-SARFusion dataset, a multi-sensor SAR dataset by integrating **RADARSAT Constellation Mission (RCM)** data with **Sentinel-1 (S1)** scenes from the AI4Arctic dataset.
 The dataset is currently being prepared for public release
 
 The pipeline includes:
