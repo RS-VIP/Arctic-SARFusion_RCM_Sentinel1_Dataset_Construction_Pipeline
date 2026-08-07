@@ -1,6 +1,6 @@
 # Arctic-SAR: RCM–Sentinel-1 SAR Dataset Construction Pipeline
 
-This repository provides a complete pipeline for constructing the Arctic-SAR dataset, a multi-sensor SAR dataset by integrating **RADARSAT Constellation Mission (RCM)** data with **Sentinel-1 (S1)** scenes from the AI4Arctic dataset.
+This repository provides a complete pipeline for constructing the Arctic-SAR dataset, a multi-sensor SAR dataset by integrating **RADARSAT Constellation Mission (RCM)** data with **Sentinel-1 (S1)** scenes from the AI4Arctic dataset. (RADARSAT Constellation Mission Imagery © Government of Canada (2019–2021). RADARSAT is an official mark of the Canadian Space Agency.)
 The dataset is currently being prepared for public release
 
 The pipeline includes:
@@ -162,7 +162,9 @@ pip install eodms-api-client
 ## Data Sources
 
 * Sentinel-1: AI4Arctic Dataset
+https://data.dtu.dk/collections/AI4Arctic_Sea_Ice_Challenge_Dataset/6244065
 * RCM: EODMS (Earth Observation Data Management System)
+https://www.eodms-sgdot.nrcan-rncan.gc.ca/index-en.html.
 
 ---
 
