@@ -162,9 +162,9 @@ pip install eodms-api-client
 ## Data Sources
 
 * Sentinel-1: AI4Arctic Dataset
-https://data.dtu.dk/collections/AI4Arctic_Sea_Ice_Challenge_Dataset/6244065
+ https://data.dtu.dk/collections/AI4Arctic_Sea_Ice_Challenge_Dataset/6244065
 * RCM: EODMS (Earth Observation Data Management System)
-https://www.eodms-sgdot.nrcan-rncan.gc.ca/index-en.html.
+ https://www.eodms-sgdot.nrcan-rncan.gc.ca/index-en.html.
 
 ---
 
